@@ -1,0 +1,36 @@
+name: "Run version test workflow"
+on:
+  workflow_dispatch:
+    inputs:
+      git_sha:
+        description: Commit SHA to build and push.
+        type: string
+        required: true
+jobs:
+  version-test:
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@44c2b7a8a4ea60a981eaca3cf939b5f4305c123b # v4.1.5
+        with:
+          ref: ${{ inputs.git_sha }}
+      - name: Print version
+        shell: bash
+        run: |
+          echo "Hello world! This is workflow version 1."
+          echo "inputs.git_sha: ${{ inputs.git_sha }}"
+          echo "github.sha: ${{ github.sha }}"
+          echo "github.workflow_sha: ${{ github.workflow_sha }}"
+      - name: Run action
+        uses: ./.github/actions/version-test
+        timeout-minutes: 5
+        with:
+          git_sha: ${{ inputs.git_sha }}
+
+  run-inner-workflow:
+    uses: ./.github/workflows/version-test-inner.yml
+    with:
+      git_sha: ${{ inputs.git_sha }}
