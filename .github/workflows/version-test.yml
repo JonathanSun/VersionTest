@@ -20,7 +20,7 @@ jobs:
       - name: Print version
         shell: bash
         run: |
-          echo "Hello world! This is workflow version 1."
+          echo "Hello world! This is workflow version 2."
           echo "inputs.git_sha: ${{ inputs.git_sha }}"
           echo "github.sha: ${{ github.sha }}"
           echo "github.workflow_sha: ${{ github.workflow_sha }}"
