@@ -31,6 +31,6 @@ jobs:
           git_sha: ${{ inputs.git_sha }}
 
   run-inner-workflow:
-    uses: JonathanSun/VersionTest/.github/workflows/version-test-inner.yml@${{input.git_sha}}
+    uses: JonathanSun/VersionTest/.github/workflows/version-test-inner.yml@v1
     with:
       git_sha: ${{ inputs.git_sha }}
