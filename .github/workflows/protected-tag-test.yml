@@ -1,0 +1,20 @@
+name: "Protected tag test"
+on:
+  workflow_dispatch:
+    inputs:
+      git_sha:
+        description: The SHA hash of the commit being deployed
+        type: string
+        required: true
+
+jobs:
+  push-protected-tag:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30
+    permissions:
+      contents: write
+    steps:
+      - name: Update tag
+        run: |
+          git tag -f well-protected-tag ${{ inputs.git_sha }}
+          git push -f origin well-protected-tag
